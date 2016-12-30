@@ -28,17 +28,17 @@ namespace InputReplacer.Controllers
                 {
                     if (tempData.Length > 1)
                     {
-                        if (tempData.Length > 3) equalchar = CharCompare(tempData.Substring(1, tempData.Length - 2));
+                        if (tempData.Length > 3) equalchar = CharCompare(tempData.Substring(1, tempData.Length - 2).ToLower());
                         result += tempData[0] + (tempData.Length - equalchar - 2).ToString() + tempData[tempData.Length - 1] + item;
                     }
-                    else result += tempData + item;
+                    else result += item;
                     tempData = "";
                 }
             }
 
             if (tempData != "" && tempData.Length > 1)
             {
-                if (tempData.Length >  3) equalchar = CharCompare(tempData.Substring(1, tempData.Length - 2));
+                if (tempData.Length >  3) equalchar = CharCompare(tempData.Substring(1, tempData.Length - 2).ToLower());
                 result += tempData[0] + (tempData.Length - equalchar - 2).ToString() + tempData[tempData.Length - 1];  
             }
             else result += tempData;
