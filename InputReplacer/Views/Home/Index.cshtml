@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+}
+<script src="~/Scripts/modernizr-2.6.2.js"></script>
+@using (Html.BeginForm())
+{
+    <div class="jumbotron">
+        <div class="row">
+            @Html.TextArea("text", new { rows = 5, cols = 70, @class = "form-control col-xs-12" })
+        </div>
+
+        <div class="row">
+            @ViewBag.Result
+        </div>
+
+        <input type="submit" value="Submit" />
+     </div>
+}
