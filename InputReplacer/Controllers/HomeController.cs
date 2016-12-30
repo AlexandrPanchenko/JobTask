@@ -15,6 +15,7 @@ namespace InputReplacer.Controllers
         [HttpPost]
         public ActionResult Index(string text)
         {
+            int equalchar = 0;
             string tempData = "";
             string result = "";
             foreach (var item in text)
@@ -25,16 +26,39 @@ namespace InputReplacer.Controllers
                 }
                 else
                 {
-                    if (tempData.Length > 1) result += tempData[0] + (tempData.Length - 2).ToString() + tempData[tempData.Length - 1] + item;
+                    if (tempData.Length > 1)
+                    {
+                        if (tempData.Length > 3) equalchar = CharCompare(tempData.Substring(1, tempData.Length - 2));
+                        result += tempData[0] + (tempData.Length - equalchar - 2).ToString() + tempData[tempData.Length - 1] + item;
+                    }
                     else result += tempData + item;
                     tempData = "";
                 }
             }
-            if (tempData != "" && tempData.Length > 1) result += tempData[0] + (tempData.Length - 2).ToString() + tempData[tempData.Length - 1];
+
+            if (tempData != "" && tempData.Length > 1)
+            {
+                if (tempData.Length >  3) equalchar = CharCompare(tempData.Substring(1, tempData.Length - 2));
+                result += tempData[0] + (tempData.Length - equalchar - 2).ToString() + tempData[tempData.Length - 1];  
+            }
             else result += tempData;
 
             ViewBag.Result = result;
             return View();
+        }
+
+        private int CharCompare(string text)
+        {
+            int count = 0;
+            int result=0;
+            foreach (var letter in text.Distinct().ToArray())
+            {
+                count = text.Count(chr => chr == letter);
+                result += count - 1;
+            }
+           
+            return result;
+
         }
 
 
